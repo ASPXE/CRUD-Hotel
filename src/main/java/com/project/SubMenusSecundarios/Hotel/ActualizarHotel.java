@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Hotel;
 
+import com.project.Clases.Hotel;
+import com.project.DAO.HotelDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +33,131 @@ public class ActualizarHotel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblIdHotel = new javax.swing.JLabel();
+        txtIdHotel = new javax.swing.JTextField();
+        lblNumeroTrabajadores = new javax.swing.JLabel();
+        txtNumeroTrabajadores = new javax.swing.JTextField();
+        lblDireccion = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        lblNumeroEstrellas = new javax.swing.JLabel();
+        txtNumeroEstrellas = new javax.swing.JTextField();
+        lblIdHabitacion = new javax.swing.JLabel();
+        txtIdHabitacion = new javax.swing.JTextField();
+        lblIdEstacionamiento = new javax.swing.JLabel();
+        txtIdEstacionamiento = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Actualizar hotel");
+        setLocation(new java.awt.Point(600, 300));
+        setMaximumSize(new java.awt.Dimension(475, 400));
+        setMinimumSize(new java.awt.Dimension(10, 10));
+        setPreferredSize(new java.awt.Dimension(475, 400));
+        getContentPane().setLayout(null);
+
+        lblIdHotel.setText("ID del hotel");
+        getContentPane().add(lblIdHotel);
+        lblIdHotel.setBounds(19, 17, 72, 18);
+        getContentPane().add(txtIdHotel);
+        txtIdHotel.setBounds(19, 53, 130, 24);
+
+        lblNumeroTrabajadores.setText("Nuevo numero de trabajadores");
+        getContentPane().add(lblNumeroTrabajadores);
+        lblNumeroTrabajadores.setBounds(19, 95, 200, 18);
+        getContentPane().add(txtNumeroTrabajadores);
+        txtNumeroTrabajadores.setBounds(19, 131, 130, 24);
+
+        lblDireccion.setText("Nueva direccion");
+        getContentPane().add(lblDireccion);
+        lblDireccion.setBounds(19, 173, 104, 18);
+        getContentPane().add(txtDireccion);
+        txtDireccion.setBounds(19, 209, 130, 24);
+
+        lblNumeroEstrellas.setText("Nuevo numero de estrellas");
+        getContentPane().add(lblNumeroEstrellas);
+        lblNumeroEstrellas.setBounds(225, 17, 210, 18);
+        getContentPane().add(txtNumeroEstrellas);
+        txtNumeroEstrellas.setBounds(225, 53, 170, 24);
+
+        lblIdHabitacion.setText("ID de la habitacion que se cambia");
+        getContentPane().add(lblIdHabitacion);
+        lblIdHabitacion.setBounds(225, 95, 219, 18);
+        getContentPane().add(txtIdHabitacion);
+        txtIdHabitacion.setBounds(225, 131, 170, 24);
+
+        lblIdEstacionamiento.setText("ID del estacionamiento que se cambia");
+        getContentPane().add(lblIdEstacionamiento);
+        lblIdEstacionamiento.setBounds(225, 173, 248, 18);
+        getContentPane().add(txtIdEstacionamiento);
+        txtIdEstacionamiento.setBounds(225, 209, 170, 24);
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnActualizar);
+        btnActualizar.setBounds(180, 290, 120, 24);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        
+        int idHotel = 0, numeroTrabajadores = 0, numeroEstrellas = 0, idHabitacion = 0, idEstacionamiento = 0;
+        String direccion = "";
+        
+        if(txtIdHotel.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "ID del hotel a modificar no ingresada", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            idHotel = Integer.parseInt(txtIdHotel.getText());
+        }
+        if(txtNumeroTrabajadores.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Nuevo numero de trabajadores no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            numeroTrabajadores = Integer.parseInt(txtNumeroTrabajadores.getText());
+        }
+        if(txtDireccion.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Nueva direccion no ingresada", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            direccion = txtDireccion.getText();
+        }
+        if(txtNumeroEstrellas.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Nuevo numero de estrellas no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            numeroEstrellas = Integer.parseInt(txtNumeroEstrellas.getText());
+        }
+        if(txtIdHabitacion.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "ID de la habitacion que se cambia no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            idHabitacion = Integer.parseInt(txtIdHabitacion.getText());
+        }
+        if(txtIdEstacionamiento.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "ID del estacionamiento que se cambia no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            idEstacionamiento = Integer.parseInt(txtIdEstacionamiento.getText());
+        }
+        
+        HotelDAO hd = new HotelDAO();
+        Hotel h = new Hotel();
+        
+        h.setIdHotel(idHotel);
+        h.setNumeroTrabajadores(numeroTrabajadores);
+        h.setDireccion(direccion);
+        h.setNumeroEstrellas(numeroEstrellas);
+        h.setFk_habitacionIds(idHabitacion);
+        h.setFk_estacionamientoIds(idEstacionamiento);
+        
+        try {
+            hd.actualizarTodo(h);
+            JOptionPane.showMessageDialog(rootPane, "Registro actualizado exitosamente", "Registro actualizado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActualizarHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +195,18 @@ public class ActualizarHotel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblIdEstacionamiento;
+    private javax.swing.JLabel lblIdHabitacion;
+    private javax.swing.JLabel lblIdHotel;
+    private javax.swing.JLabel lblNumeroEstrellas;
+    private javax.swing.JLabel lblNumeroTrabajadores;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtIdEstacionamiento;
+    private javax.swing.JTextField txtIdHabitacion;
+    private javax.swing.JTextField txtIdHotel;
+    private javax.swing.JTextField txtNumeroEstrellas;
+    private javax.swing.JTextField txtNumeroTrabajadores;
     // End of variables declaration//GEN-END:variables
 }

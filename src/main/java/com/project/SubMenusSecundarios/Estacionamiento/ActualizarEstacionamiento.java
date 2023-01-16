@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Estacionamiento;
 
+import com.project.Clases.Estacionamiento;
+import com.project.DAO.EstacionamientoDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -15,6 +22,8 @@ public class ActualizarEstacionamiento extends javax.swing.JFrame {
      */
     public ActualizarEstacionamiento() {
         initComponents();
+        buttonGroup1.add(rbNo);
+        buttonGroup1.add(rbSi);
     }
 
     /**
@@ -26,21 +35,194 @@ public class ActualizarEstacionamiento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        txtNumeroCajones = new javax.swing.JTextField();
+        txtSizeM2 = new javax.swing.JTextField();
+        txtNumeroPisos = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
+        rbSi = new javax.swing.JRadioButton();
+        rbNo = new javax.swing.JRadioButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("ID Estacionamiento");
+
+        jLabel2.setText("Numero de cajones");
+
+        jLabel3.setText("Area que abarca en M2");
+
+        jLabel4.setText("Es automatizado");
+
+        jLabel5.setText("Numero de pisos");
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        rbSi.setText("Si");
+        rbSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbSiActionPerformed(evt);
+            }
+        });
+
+        rbNo.setText("No");
+        rbNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNumeroCajones, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtSizeM2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(85, 85, 85)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNumeroPisos))
+                        .addContainerGap(37, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rbSi)
+                        .addGap(53, 53, 53)
+                        .addComponent(rbNo)
+                        .addGap(16, 16, 16))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActualizar)
+                .addGap(154, 154, 154))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbSi)
+                    .addComponent(rbNo))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumeroPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtSizeM2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnActualizar)
+                .addGap(43, 43, 43))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rbSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSiActionPerformed
+        if(rbSi.isSelected()){
+            
+        }else{
+            
+        }
+        
+        
+    }//GEN-LAST:event_rbSiActionPerformed
+
+    private void rbNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoActionPerformed
+        if(rbNo.isSelected()){
+            
+        }else{
+            
+        }
+        
+        
+    }//GEN-LAST:event_rbNoActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        
+        int id = 0, numeroCajones = 0, numeroPisos = 0;
+        boolean automatizado = false;
+        double sizeM2 = 0;
+        
+        
+        if(txtId.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "ID del estacionamiento no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            id = Integer.parseInt(txtId.getText());
+        }
+        if(txtNumeroCajones.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Numero de cajones no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            numeroCajones = Integer.parseInt(txtNumeroCajones.getText());
+        }
+        if(txtSizeM2.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Area del estacionamiento no ingresada", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            sizeM2 = Double.parseDouble(txtSizeM2.getText());
+        }
+        if(!rbSi.isSelected() && !rbNo.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "No selecciono si es automatizado o no", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(rbSi.isSelected()){
+                automatizado = true;
+                rbNo.setSelected(false);
+            }else if(rbNo.isSelected()){
+                automatizado = false;
+                rbSi.setSelected(false);
+            }
+        }
+        if(txtNumeroPisos.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Numero de pisos no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            numeroPisos = Integer.parseInt(txtNumeroPisos.getText());
+        }
+        
+        EstacionamientoDAO ed = new EstacionamientoDAO();
+        Estacionamiento e = new Estacionamiento();
+        
+        e.setIdEstacionamiento(id);
+        e.setNumeroCajones(numeroCajones);
+        e.setSizeM2(sizeM2);
+        e.setAutomatizado(automatizado);
+        e.setNumeroPisos(numeroPisos);
+        
+        try {
+            ed.actualizarTodo(e);
+            JOptionPane.showMessageDialog(rootPane, "Estacionamiento actualizado exitosamente", "Registro actualizado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActualizarEstacionamiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +260,18 @@ public class ActualizarEstacionamiento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JRadioButton rbNo;
+    private javax.swing.JRadioButton rbSi;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNumeroCajones;
+    private javax.swing.JTextField txtNumeroPisos;
+    private javax.swing.JTextField txtSizeM2;
     // End of variables declaration//GEN-END:variables
 }

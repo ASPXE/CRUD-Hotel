@@ -4,6 +4,15 @@
  */
 package com.project.SubMenusSecundarios.Administradores;
 
+import com.project.Clases.Administradores;
+import com.project.DAO.AdministradoresDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +35,63 @@ public class VerAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtLista = new javax.swing.JTextArea();
+        btnVer = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        txtLista.setColumns(20);
+        txtLista.setRows(5);
+        jScrollPane1.setViewportView(txtLista);
+
+        btnVer.setText("Ver administradores");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(btnVer)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVer)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        AdministradoresDAO ad = new AdministradoresDAO();
+        List<Administradores> admins = new ArrayList<>();
+        
+        try {
+            admins = ad.seleccionar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VerAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        txtLista.setText(admins.toString());
+        
+    }//GEN-LAST:event_btnVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +129,8 @@ public class VerAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVer;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtLista;
     // End of variables declaration//GEN-END:variables
 }

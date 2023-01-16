@@ -17,6 +17,8 @@ public class HotelDAO {
     private static final String SQL_UPDATE_NUMERO_TRABAJADORES = "UPDATE Hotel SET NumeroTrabajadores = ? WHERE idHotel = ?";
     private static final String SQL_UPDATE_DIRECCION = "UPDATE Hotel SET Direccion = ? WHERE idHotel = ?";
     private static final String SQL_UPDATE_NUMERO_ESTRELLAS = "UPDATE Hotel SET NumeroEstrellas = ? WHERE idHotel = ?";
+    private static final String SQL_UPDATE_FK_ESTACIONAMIENTO = "UPDATE Hotel SET fk_estacionamientoIds = ? WHERE idHotel = ?";
+    private static final String SQL_UPDATE_FK_HABITACION = "UPDATE Hotel SET fk_habitacionIds = ? WHERE idHotel = ?";
     private static final String SQL_DELETE = "DELETE FROM Hotel WHERE idHotel = ?";
     
     public List<Hotel> seleccionar() throws SQLException{
@@ -133,13 +135,49 @@ public class HotelDAO {
         conn = Conexion.conectar();
         stmt = conn.prepareStatement(this.SQL_UPDATE_NUMERO_ESTRELLAS);
         stmt.setInt(1, h.getNumeroEstrellas());
-        stmt.setInt(2, h.getNumeroEstrellas());
+        stmt.setInt(2, h.getIdHotel());
         registros = stmt.executeUpdate();
         
         Conexion.cerrar(stmt);
         Conexion.cerrar(conn);
         
         return registros;
+    }
+    
+    public int actualizarIdHabitacion(Hotel h) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+        
+        conn = Conexion.conectar();
+        stmt = conn.prepareStatement(this.SQL_UPDATE_FK_HABITACION);
+        stmt.setInt(1, h.getFk_habitacionIds());
+        stmt.setInt(2, h.getIdHotel());
+        registros = stmt.executeUpdate();
+        
+        Conexion.cerrar(stmt);
+        Conexion.cerrar(conn);
+        
+        return registros;
+    }
+    
+    public int actualizarIdEstacionamiento(Hotel h) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+        
+        conn = Conexion.conectar();
+        stmt = conn.prepareStatement(this.SQL_UPDATE_FK_ESTACIONAMIENTO);
+        stmt.setInt(1, h.getFk_estacionamientoIds());
+        stmt.setInt(2, h.getIdHotel());
+        registros = stmt.executeUpdate();
+        
+        Conexion.cerrar(stmt);
+        Conexion.cerrar(conn);
+        
+        return registros;
+        
     }
     
     public int eliminar(Hotel h) throws SQLException{

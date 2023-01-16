@@ -26,21 +26,77 @@ public class ActualizarAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnActualizarTodo = new javax.swing.JButton();
+        btnActualizarNombre = new javax.swing.JButton();
+        btnActualizarPassword = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnActualizarTodo.setText("Actualizar toda la informacion de un administrador");
+        btnActualizarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarTodoActionPerformed(evt);
+            }
+        });
+
+        btnActualizarNombre.setText("Actualizar nombre de administrador");
+        btnActualizarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarNombreActionPerformed(evt);
+            }
+        });
+
+        btnActualizarPassword.setText("Actualizar contraseña de administrador");
+        btnActualizarPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnActualizarTodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizarNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizarPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(btnActualizarTodo)
+                .addGap(56, 56, 56)
+                .addComponent(btnActualizarNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(btnActualizarPassword)
+                .addGap(64, 64, 64))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnActualizarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTodoActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_btnActualizarTodoActionPerformed
+
+    private void btnActualizarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarNombreActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_btnActualizarNombreActionPerformed
+
+    private void btnActualizarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPasswordActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_btnActualizarPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +134,8 @@ public class ActualizarAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarNombre;
+    private javax.swing.JButton btnActualizarPassword;
+    private javax.swing.JButton btnActualizarTodo;
     // End of variables declaration//GEN-END:variables
 }

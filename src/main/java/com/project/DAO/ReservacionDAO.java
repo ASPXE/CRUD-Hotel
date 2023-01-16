@@ -16,6 +16,8 @@ public class ReservacionDAO {
     private static final String SQL_UPDATE_TODO = "UPDATE Reservacion SET NumeroPersonas = ?, NumeroNoches = ?, fk_habitacionId = ?, fk_serviciosId = ? WHERE idReservacion = ?";
     private static final String SQL_UPDATE_NUMERO_PERSONAS = "UPDATE Reservacion SET NumeroPersonas = ? WHERE idReservacion = ?";
     private static final String SQL_UPDATE_NUMERO_NOCHES = "UPDATE Reservacion SET NumeroNoches = ? WHERE idReservacion = ?";
+    private static final String SQL_UPDATE_FK_HABITACIONID = "UPDATE Reservacion SET fk_habitacionId = ? WHERE idReservacion = ?";
+    private static final String SQL_UPDATE_FK_SERVICIOSID = "UPDATE Reservacion SET fk_serviciosId = ? WHERE idServicios = ?";
     private static final String SQL_DELETE = "DELETE FROM Reservacion WHERE idReservacion = ?";
     
     public List<Reservacion> seleccionar() throws SQLException{
@@ -112,6 +114,40 @@ public class ReservacionDAO {
         conn = Conexion.conectar();
         stmt = conn.prepareStatement(this.SQL_UPDATE_NUMERO_NOCHES);
         stmt.setInt(1, r.getNumeroNoches());
+        stmt.setInt(2, r.getIdReservacion());
+        registros = stmt.executeUpdate();
+        
+        Conexion.cerrar(stmt);
+        Conexion.cerrar(conn);
+        
+        return registros;
+    }
+    
+    public int actualizarFkHabitacion(Reservacion r) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+        
+        conn = Conexion.conectar();
+        stmt = conn.prepareStatement(this.SQL_UPDATE_FK_HABITACIONID);
+        stmt.setInt(1, r.getFk_habitacionId());
+        stmt.setInt(2, r.getIdReservacion());
+        registros = stmt.executeUpdate();
+        
+        Conexion.cerrar(stmt);
+        Conexion.cerrar(conn);
+        
+        return registros;
+    }
+    
+    public int actualizarFkServicios(Reservacion r) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+        
+        conn = Conexion.conectar();
+        stmt = conn.prepareStatement(this.SQL_UPDATE_FK_SERVICIOSID);
+        stmt.setInt(1, r.getFk_serviciosId());
         stmt.setInt(2, r.getIdReservacion());
         registros = stmt.executeUpdate();
         

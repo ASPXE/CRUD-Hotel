@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Servicios;
 
+import com.project.Clases.Servicios;
+import com.project.DAO.ServiciosDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -15,6 +22,14 @@ public class ActualizarServicios extends javax.swing.JFrame {
      */
     public ActualizarServicios() {
         initComponents();
+        buttonGroup1.add(rbSiTour);
+        buttonGroup1.add(rbNoTour);
+        buttonGroup2.add(rbSiTransporte);
+        buttonGroup2.add(rbNoTransporte);
+        buttonGroup3.add(rbSiLavanderia);
+        buttonGroup3.add(rbNoLavanderia);
+        buttonGroup4.add(rbSiGimnasio);
+        buttonGroup4.add(rbNoGimnasio);
     }
 
     /**
@@ -26,21 +41,171 @@ public class ActualizarServicios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        lblIdServicio = new javax.swing.JLabel();
+        txtIdServicio = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        rbSiTour = new javax.swing.JRadioButton();
+        rbNoTour = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        rbSiTransporte = new javax.swing.JRadioButton();
+        rbNoTransporte = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        rbSiLavanderia = new javax.swing.JRadioButton();
+        rbNoLavanderia = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        rbSiGimnasio = new javax.swing.JRadioButton();
+        rbNoGimnasio = new javax.swing.JRadioButton();
+        btnActualizar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Actualizar servicio");
+        setLocation(new java.awt.Point(600, 300));
+        setMaximumSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(10, 10));
+        setPreferredSize(new java.awt.Dimension(400, 400));
+        getContentPane().setLayout(null);
+
+        lblIdServicio.setText("ID del servicio");
+        getContentPane().add(lblIdServicio);
+        lblIdServicio.setBounds(30, 15, 91, 18);
+        getContentPane().add(txtIdServicio);
+        txtIdServicio.setBounds(30, 51, 130, 24);
+
+        jLabel2.setText("Tour guiado");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(30, 90, 77, 18);
+
+        rbSiTour.setText("Si");
+        getContentPane().add(rbSiTour);
+        rbSiTour.setBounds(38, 129, 77, 22);
+
+        rbNoTour.setText("No");
+        getContentPane().add(rbNoTour);
+        rbNoTour.setBounds(133, 129, 41, 22);
+
+        jLabel3.setText("Transporte");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(30, 169, 71, 18);
+
+        rbSiTransporte.setText("Si");
+        getContentPane().add(rbSiTransporte);
+        rbSiTransporte.setBounds(30, 206, 36, 22);
+
+        rbNoTransporte.setText("No");
+        getContentPane().add(rbNoTransporte);
+        rbNoTransporte.setBounds(84, 206, 41, 22);
+
+        jLabel4.setText("Lavanderia");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(30, 247, 100, 18);
+
+        rbSiLavanderia.setText("Si");
+        getContentPane().add(rbSiLavanderia);
+        rbSiLavanderia.setBounds(30, 283, 36, 22);
+
+        rbNoLavanderia.setText("No");
+        getContentPane().add(rbNoLavanderia);
+        rbNoLavanderia.setBounds(84, 283, 41, 22);
+
+        jLabel5.setText("Gimnasio");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(30, 323, 62, 18);
+
+        rbSiGimnasio.setText("Si");
+        getContentPane().add(rbSiGimnasio);
+        rbSiGimnasio.setBounds(30, 359, 36, 22);
+
+        rbNoGimnasio.setText("No");
+        getContentPane().add(rbNoGimnasio);
+        rbNoGimnasio.setBounds(84, 359, 41, 22);
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnActualizar);
+        btnActualizar.setBounds(227, 205, 94, 24);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        int idServicio = 0;
+        boolean tourGuiado = false, transporte = false, lavanderia = false, gimnasio = false;
+        
+        if(txtIdServicio.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "ID del servicio no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            idServicio = Integer.parseInt(txtIdServicio.getText());
+        }
+        if(!rbSiTour.isSelected() && !rbNoTour.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "No selecciono si incluye tour guiado o no", "Informacion faltante",JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(rbSiTour.isSelected()){
+                rbNoTour.setSelected(false);
+                tourGuiado = rbSiTour.isSelected();
+            }else if(rbNoTour.isSelected()){
+                rbSiTour.setSelected(false);
+                tourGuiado = rbNoTour.isSelected();
+            }
+        }
+        if(!rbSiTransporte.isSelected() && !rbNoTransporte.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "No selecciono si incluye transporte o no", "Informacion faltante",JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(rbSiTransporte.isSelected()){
+                rbNoTransporte.setSelected(false);
+                transporte = rbSiTransporte.isSelected();
+            }else if(rbNoTransporte.isSelected()){
+                rbSiTransporte.setSelected(false);
+                transporte = rbNoTransporte.isSelected();
+            }
+        }
+        if(!rbSiLavanderia.isSelected() && !rbNoLavanderia.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "No selecciono si incluye lavanderia o no", "Informacion faltante",JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(rbSiLavanderia.isSelected()){
+                rbNoLavanderia.setSelected(false);
+                lavanderia = rbSiLavanderia.isSelected();
+            }else if(rbNoLavanderia.isSelected()){
+                rbSiLavanderia.setSelected(false);
+                lavanderia = rbNoLavanderia.isSelected();
+            }
+        }
+        if(!rbSiGimnasio.isSelected() && !rbNoGimnasio.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "No selecciono si incluye gimnasio o no", "Informacion faltante",JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(rbSiGimnasio.isSelected()){
+                rbNoGimnasio.setSelected(false);
+                gimnasio = rbSiGimnasio.isSelected();
+            }else if(rbNoGimnasio.isSelected()){
+                rbSiGimnasio.setSelected(false);
+                gimnasio = rbNoGimnasio.isSelected();
+            }
+        }
+        
+        ServiciosDAO sd = new ServiciosDAO();
+        Servicios s = new Servicios();
+        
+        s.setIdServicios(idServicio);
+        s.setTourGuiado(tourGuiado);
+        s.setTransporte(transporte);
+        s.setLavanderia(lavanderia);
+        s.setGimnasio(gimnasio);
+        
+        try {
+            sd.actualizarTodo(s);
+            JOptionPane.showMessageDialog(rootPane, "Servicios actualizados exitosamente", "Registro actualizado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActualizarServicios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +243,24 @@ public class ActualizarServicios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblIdServicio;
+    private javax.swing.JRadioButton rbNoGimnasio;
+    private javax.swing.JRadioButton rbNoLavanderia;
+    private javax.swing.JRadioButton rbNoTour;
+    private javax.swing.JRadioButton rbNoTransporte;
+    private javax.swing.JRadioButton rbSiGimnasio;
+    private javax.swing.JRadioButton rbSiLavanderia;
+    private javax.swing.JRadioButton rbSiTour;
+    private javax.swing.JRadioButton rbSiTransporte;
+    private javax.swing.JTextField txtIdServicio;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,14 @@
  */
 package com.project.SubMenusSecundarios.Servicios;
 
+import com.project.Clases.Servicios;
+import com.project.DAO.ServiciosDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author aspxe
@@ -26,21 +34,72 @@ public class VerServicios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt = new javax.swing.JTextArea();
+        btnVer = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ver servicios");
+        setLocation(new java.awt.Point(600, 300));
+        setMaximumSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(10, 10));
+        setPreferredSize(new java.awt.Dimension(400, 400));
+
+        txt.setColumns(20);
+        txt.setRows(5);
+        jScrollPane1.setViewportView(txt);
+
+        btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(btnVer)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVer)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        
+        List<Servicios> servicios = new ArrayList<>();
+        Servicios s = new Servicios();
+        ServiciosDAO sd = new ServiciosDAO();
+        
+        try {
+            servicios = sd.seleccionar();
+            for(int i = 0; i< servicios.size(); i++){
+                s = servicios.get(i);
+                txt.setText(s.toString()+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VerServicios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +137,8 @@ public class VerServicios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVer;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txt;
     // End of variables declaration//GEN-END:variables
 }

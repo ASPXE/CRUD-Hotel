@@ -1,8 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.project.SubMenusSecundarios.Estacionamiento;
+
+import com.project.Clases.Estacionamiento;
+import com.project.DAO.EstacionamientoDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +18,8 @@ public class IngresarEstacionamiento extends javax.swing.JFrame {
      */
     public IngresarEstacionamiento() {
         initComponents();
+        buttonGroup1.add(rbNo);
+        buttonGroup1.add(rbSi);
     }
 
     /**
@@ -26,21 +31,148 @@ public class IngresarEstacionamiento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        lblNumeroCajones = new javax.swing.JLabel();
+        lblNumeroPisos = new javax.swing.JLabel();
+        lblSizeM2 = new javax.swing.JLabel();
+        lblAutomatizado = new javax.swing.JLabel();
+        txtNumeroCajones = new javax.swing.JTextField();
+        txtNumeroPisos = new javax.swing.JTextField();
+        txtSizeM2 = new javax.swing.JTextField();
+        rbSi = new javax.swing.JRadioButton();
+        rbNo = new javax.swing.JRadioButton();
+        btnIngresar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblNumeroCajones.setText("Numero de cajones");
+
+        lblNumeroPisos.setText("Numero de pisos");
+
+        lblSizeM2.setText("Area en M2");
+
+        lblAutomatizado.setText("Es Automatizado");
+
+        rbSi.setText("Si");
+
+        rbNo.setText("No");
+
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSizeM2)
+                            .addComponent(lblNumeroPisos))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIngresar)
+                        .addGap(121, 121, 121))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtSizeM2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumeroPisos)
+                            .addComponent(lblNumeroCajones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNumeroCajones, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAutomatizado)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbSi)
+                                .addGap(47, 47, 47)
+                                .addComponent(rbNo)))
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNumeroCajones)
+                    .addComponent(lblAutomatizado))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbSi)
+                    .addComponent(rbNo))
+                .addGap(18, 18, 18)
+                .addComponent(lblNumeroPisos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNumeroPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(lblSizeM2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(btnIngresar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSizeM2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        
+        int numeroCajones = 0, numeroPisos = 0;
+        double sizeM2 = 0;
+        boolean automatizado = false;
+        
+        if(txtNumeroCajones.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Numero de cajones no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            numeroCajones = Integer.parseInt(txtNumeroCajones.getText());
+        }
+        if(txtNumeroPisos.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Numero de pisos no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            numeroPisos = Integer.parseInt(txtNumeroPisos.getText());
+        }
+        if(txtSizeM2.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Area en M2 no ingresada", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            sizeM2 = Double.parseDouble(txtSizeM2.getText());
+        }
+        if(!rbSi.isSelected() && !rbNo.isSelected()){
+            JOptionPane.showMessageDialog(rootPane, "No selecciono si es automatizado o no", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(rbSi.isSelected()){
+                automatizado = true;
+                rbNo.setSelected(false);
+            }else if(rbNo.isSelected()){
+                automatizado = false;
+                rbSi.setSelected(false);
+            }
+        }
+        
+        EstacionamientoDAO ed = new EstacionamientoDAO();
+        Estacionamiento e = new Estacionamiento();
+        
+        e.setNumeroCajones(numeroCajones);
+        e.setNumeroPisos(numeroPisos);
+        e.setSizeM2(sizeM2);
+        e.setAutomatizado(automatizado);
+        
+        try {
+            ed.insertar(e);
+            JOptionPane.showMessageDialog(rootPane, "Estacionamiento ingresado correctamente", "Registro insertado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngresarEstacionamiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +210,16 @@ public class IngresarEstacionamiento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel lblAutomatizado;
+    private javax.swing.JLabel lblNumeroCajones;
+    private javax.swing.JLabel lblNumeroPisos;
+    private javax.swing.JLabel lblSizeM2;
+    private javax.swing.JRadioButton rbNo;
+    private javax.swing.JRadioButton rbSi;
+    private javax.swing.JTextField txtNumeroCajones;
+    private javax.swing.JTextField txtNumeroPisos;
+    private javax.swing.JTextField txtSizeM2;
     // End of variables declaration//GEN-END:variables
 }

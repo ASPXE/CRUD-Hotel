@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Administradores;
 
+import com.project.Clases.Administradores;
+import com.project.DAO.AdministradoresDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +33,63 @@ public class IngresarAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblNombre = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        btnIngresar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        lblNombre.setText("Nombre");
+        getContentPane().add(lblNombre);
+        lblNombre.setBounds(20, 20, 80, 18);
+
+        lblPassword.setText("Contraseña");
+        getContentPane().add(lblPassword);
+        lblPassword.setBounds(20, 100, 76, 18);
+        getContentPane().add(txtNombre);
+        txtNombre.setBounds(20, 50, 120, 24);
+        getContentPane().add(txtPassword);
+        txtPassword.setBounds(20, 130, 120, 24);
+
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnIngresar);
+        btnIngresar.setBounds(150, 190, 83, 24);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        String nombre = "", password = "";
+        if(txtNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar el nombre del administrador", "Informacion faltante", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            nombre = txtNombre.getText();
+        }
+        if(txtPassword.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Debe de ingresar una contraseña", "Informacion faltante", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            password = txtPassword.getText();
+        }
+        
+        AdministradoresDAO ad = new AdministradoresDAO();
+        Administradores admin = new Administradores();
+        admin.setNombre(nombre);
+        admin.setPassword(password);
+        try {
+            ad.insertar(admin);
+            JOptionPane.showMessageDialog(rootPane, ad, "Adminsitrador generado exitosamente", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngresarAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +127,10 @@ public class IngresarAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

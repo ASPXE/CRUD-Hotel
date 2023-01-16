@@ -4,6 +4,14 @@
  */
 package com.project.SubMenusSecundarios.Reservacion;
 
+import com.project.Clases.Reservacion;
+import com.project.DAO.ReservacionDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author aspxe
@@ -26,21 +34,66 @@ public class VerReservacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt = new javax.swing.JTextArea();
+        btnVer = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        txt.setColumns(20);
+        txt.setRows(5);
+        jScrollPane1.setViewportView(txt);
+
+        btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(btnVer)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVer)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        List<Reservacion> reservaciones = new ArrayList<>();
+        Reservacion r = new Reservacion();
+        ReservacionDAO rd = new ReservacionDAO();
+        
+        try {
+            reservaciones = rd.seleccionar();
+            for(int i = 0; i < reservaciones.size(); i++){
+                r = reservaciones.get(i);
+                txt.setText(r.toString()+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VerReservacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +131,8 @@ public class VerReservacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVer;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txt;
     // End of variables declaration//GEN-END:variables
 }

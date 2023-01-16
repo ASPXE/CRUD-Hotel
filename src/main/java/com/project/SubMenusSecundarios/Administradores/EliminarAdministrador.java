@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Administradores;
 
+import com.project.Clases.Administradores;
+import com.project.DAO.AdministradoresDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +33,49 @@ public class EliminarAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        txtEliminar = new javax.swing.JTextField();
+        btnEliminar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        jLabel1.setText("ID del administrador a eliminar");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(80, 60, 230, 18);
+        getContentPane().add(txtEliminar);
+        txtEliminar.setBounds(130, 90, 130, 24);
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEliminar);
+        btnEliminar.setBounds(150, 130, 83, 24);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int id = 0;
+        
+        if(txtEliminar.getText().equals((""))){
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar el ID del administrador", "Informacion faltante", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            id = Integer.parseInt(txtEliminar.getText());
+        }
+        Administradores admin = new Administradores();
+        AdministradoresDAO ad = new AdministradoresDAO();
+        admin.setIdAdmin(id);
+        try {
+            ad.eliminar(admin);
+            JOptionPane.showMessageDialog(rootPane, "Administrador eliminado exitosamente", "Registro actualizado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(EliminarAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +113,8 @@ public class EliminarAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtEliminar;
     // End of variables declaration//GEN-END:variables
 }

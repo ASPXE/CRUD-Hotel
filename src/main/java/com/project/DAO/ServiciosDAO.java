@@ -14,10 +14,10 @@ public class ServiciosDAO {
     private static final String SQL_SELECT = "SELECT idServicios, TourGuiado, Transporte, Lavanderia, Gimnasio FROM Servicios";
     private static final String SQL_INSERT = "INSERT INTO Servicios(TourGuiado, Transporte, Lavanderia, Gimnasio) VALUES(?, ?, ?, ?)";
     private static final String SQL_UPDATE_TODO = "UPDATE Servicios SET TourGuiado = ?, Transporte = ?, Lavanderia = ?, Gimnasio = ? WHERE idServicios = ?";
-    private static final String SQL_UPDATE_TOUR_GUIADO = "";
-    private static final String SQL_UPDATE_TRANSPORTE = "";
-    private static final String SQL_UPDATE_LAVANDERIA = "";
-    private static final String SQL_UPDATE_GIMNASIO = "";
+    private static final String SQL_UPDATE_TOUR_GUIADO = "UPDATE Servicios SET TourGuiado = ? WHERE idServicios = ?";
+    private static final String SQL_UPDATE_TRANSPORTE = "UPDATE Servicios SET Transporte = ? WHERE idServicios = ?";
+    private static final String SQL_UPDATE_LAVANDERIA = "UPDATE Servicios SET Lavanderia = ? WHERE idServicios = ?";
+    private static final String SQL_UPDATE_GIMNASIO = "UPDATE Servicios SET Gimnasio = ? WHERE idServicios = ?";
     private static final String SQL_DELETE = "DELETE FROM Servicios WHERE idServicos = ?";
     
     public List<Servicios> seleccionar() throws SQLException{

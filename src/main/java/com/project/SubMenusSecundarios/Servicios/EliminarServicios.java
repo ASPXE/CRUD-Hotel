@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Servicios;
 
+import com.project.Clases.Servicios;
+import com.project.DAO.ServiciosDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +33,78 @@ public class EliminarServicios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblIdServicio = new javax.swing.JLabel();
+        txtIdServicio = new javax.swing.JTextField();
+        btnEliminar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Eliminar servicios");
+        setLocation(new java.awt.Point(600, 300));
+        setMaximumSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(10, 10));
+        setPreferredSize(new java.awt.Dimension(400, 400));
+
+        lblIdServicio.setText("ID del servicio a eliminar");
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblIdServicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtIdServicio)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(btnEliminar)))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblIdServicio)
+                .addGap(18, 18, 18)
+                .addComponent(txtIdServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(btnEliminar)
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int idServicios = 0;
+        
+        if(txtIdServicio.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "ID del servicio no ingresado", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        }else{
+            idServicios = Integer.parseInt(txtIdServicio.getText());
+        }
+        
+        ServiciosDAO sd = new ServiciosDAO();
+        Servicios s = new Servicios();
+        
+        s.setIdServicios(idServicios);
+        
+        try {
+            sd.eliminar(s);
+            JOptionPane.showMessageDialog(rootPane, "Servicio eliminado exitosamente", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(EliminarServicios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +142,8 @@ public class EliminarServicios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JLabel lblIdServicio;
+    private javax.swing.JTextField txtIdServicio;
     // End of variables declaration//GEN-END:variables
 }

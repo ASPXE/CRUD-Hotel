@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Hotel;
 
+import com.project.Clases.Hotel;
+import com.project.DAO.HotelDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +33,151 @@ public class IngresarHotel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbNumeroTrabajadores = new javax.swing.JLabel();
+        txtNumeroTrabajadores = new javax.swing.JTextField();
+        lblDireccion = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        lblNumeroEstrellas = new javax.swing.JLabel();
+        txtNumeroEstrellas = new javax.swing.JTextField();
+        lblIdHabitacion = new javax.swing.JLabel();
+        txtIdHabitacion = new javax.swing.JTextField();
+        lblIdEstacionamiento = new javax.swing.JLabel();
+        txtIdEstacionamiento = new javax.swing.JTextField();
+        btnIngresar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ingresar hotel");
+        setLocation(new java.awt.Point(600, 300));
+        setMaximumSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(10, 10));
+
+        lbNumeroTrabajadores.setText("Numero de trabajadores");
+
+        lblDireccion.setText("Direccion");
+
+        lblNumeroEstrellas.setText("Numero de estrellas");
+
+        lblIdHabitacion.setText("ID de una habitacion");
+
+        lblIdEstacionamiento.setText("ID de un estacionamiento");
+
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbNumeroTrabajadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblIdHabitacion)
+                    .addComponent(lblNumeroEstrellas)
+                    .addComponent(lblDireccion)
+                    .addComponent(txtNumeroTrabajadores)
+                    .addComponent(txtDireccion)
+                    .addComponent(txtNumeroEstrellas)
+                    .addComponent(txtIdHabitacion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnIngresar)
+                        .addGap(69, 69, 69))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtIdEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIdEstacionamiento))
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbNumeroTrabajadores)
+                    .addComponent(lblIdEstacionamiento))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroTrabajadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblDireccion)
+                .addGap(18, 18, 18)
+                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblNumeroEstrellas)
+                .addGap(18, 18, 18)
+                .addComponent(txtNumeroEstrellas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIdHabitacion)
+                    .addComponent(btnIngresar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        
+        int numeroTrabajadores = 0, numeroEstrellas = 0, idHabitacion = 0, idEstacionamiento = 0;
+        String direccion = "";
+        
+        if (txtNumeroTrabajadores.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No ingreso el numero de trabajadores", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        } else {
+            numeroTrabajadores = Integer.parseInt(txtNumeroTrabajadores.getText());
+        }
+        if (txtDireccion.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No ingreso la direccion del hotel", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            direccion = txtDireccion.getText();
+        }
+        if (txtNumeroEstrellas.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No ingreso el numero de estrellas del hotel", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            numeroEstrellas = Integer.parseInt(txtNumeroEstrellas.getText());
+        }
+        if (txtIdHabitacion.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No ingreso el ID de alguna de las habitaciones", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            idHabitacion = Integer.parseInt(txtIdHabitacion.getText());
+        }
+        if (txtIdEstacionamiento.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No ingreso el ID de un estacionamiento", "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            idEstacionamiento = Integer.parseInt(txtIdEstacionamiento.getText());
+        }
+        
+        HotelDAO hd = new HotelDAO();
+        Hotel h = new Hotel();
+        
+        h.setNumeroTrabajadores(numeroTrabajadores);
+        h.setDireccion(direccion);
+        h.setNumeroEstrellas(numeroEstrellas);
+        h.setFk_habitacionIds(idHabitacion);
+        h.setFk_estacionamientoIds(idEstacionamiento);
+        
+        try {
+            hd.insertar(h);
+            JOptionPane.showMessageDialog(rootPane, "Hotel registrado exitosamente", "Registro insertado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngresarHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +215,16 @@ public class IngresarHotel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JLabel lbNumeroTrabajadores;
+    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblIdEstacionamiento;
+    private javax.swing.JLabel lblIdHabitacion;
+    private javax.swing.JLabel lblNumeroEstrellas;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtIdEstacionamiento;
+    private javax.swing.JTextField txtIdHabitacion;
+    private javax.swing.JTextField txtNumeroEstrellas;
+    private javax.swing.JTextField txtNumeroTrabajadores;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,13 @@
  */
 package com.project.SubMenusSecundarios.Reservacion;
 
+import com.project.Clases.Reservacion;
+import com.project.DAO.ReservacionDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aspxe
@@ -26,21 +33,132 @@ public class IngresarReservacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNumeroPersonas = new javax.swing.JTextField();
+        txtNumeroNoches = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtIdHabitacion = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtIdServicios = new javax.swing.JTextField();
+        btnIngresar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ingresar reservacion");
+        setLocation(new java.awt.Point(600, 300));
+        setMaximumSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(10, 10));
+        setPreferredSize(new java.awt.Dimension(400, 400));
+
+        jLabel1.setText("Numero de personas");
+
+        jLabel2.setText("Numero de noches");
+
+        jLabel3.setText("ID de la habitacion a ocupar");
+
+        jLabel4.setText("ID de los servicios solicitados");
+
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1))
+                            .addComponent(txtNumeroPersonas)
+                            .addComponent(txtNumeroNoches)
+                            .addComponent(txtIdHabitacion)
+                            .addComponent(txtIdServicios)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(btnIngresar)))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGap(15, 15, 15)
+                .addComponent(txtNumeroPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtNumeroNoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtIdHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(txtIdServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnIngresar)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+
+        int idHabitacion = 0, idServicio = 0, numeroPersonas = 0, numeroNoches = 0;
+        
+        if (txtIdHabitacion.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, evt, "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+        } else {
+            idHabitacion = Integer.parseInt(txtIdHabitacion.getText());
+        }
+        if (txtIdServicios.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, evt, "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            idServicio = Integer.parseInt(txtIdServicios.getText());
+        }
+        if (txtNumeroPersonas.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, evt, "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            numeroPersonas = Integer.parseInt(txtNumeroPersonas.getText());
+        }
+        if (txtNumeroNoches.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, evt, "Informacion faltante", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            numeroNoches = Integer.parseInt(txtNumeroNoches.getText());
+        }
+        
+        ReservacionDAO rd = new ReservacionDAO();
+        Reservacion r = new Reservacion();
+
+        r.setFk_habitacionId(idHabitacion);
+        r.setFk_serviciosId(idServicio);
+        r.setNumeroNoches(numeroNoches);
+        r.setNumeroPersonas(numeroPersonas);
+        
+        try {
+            rd.insertar(r);
+            JOptionPane.showMessageDialog(rootPane, "Reservacion registrada exitosamente", "Registro insertado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngresarReservacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +196,14 @@ public class IngresarReservacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtIdHabitacion;
+    private javax.swing.JTextField txtIdServicios;
+    private javax.swing.JTextField txtNumeroNoches;
+    private javax.swing.JTextField txtNumeroPersonas;
     // End of variables declaration//GEN-END:variables
 }
